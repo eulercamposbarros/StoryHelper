@@ -6,6 +6,7 @@
     <RootNamespace>StoryHelper</RootNamespace>
     <InterpreterId>{52d96d56-9af8-4fee-8dbb-29b19def6346}</InterpreterId>
     <InterpreterVersion>3.5</InterpreterVersion>
+    <PythonDebugWebServerCommandArguments />
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -29,9 +30,49 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="app\forms.py" />
+    <Compile Include="app\forms.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\models.py" />
-    <Compile Include="app\tests.py" />
+    <Compile Include="app\services\formatter.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\services\model_builder.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\services\tools\object_io.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\services\tokenizer.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\services\services.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\services\stemmer.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\services\stopwords.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\services\tagger.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\services\tools\time_measure.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\services\tools\__init__.py" />
+    <Compile Include="app\services\__init__.py" />
+    <Compile Include="app\tests\test_model_builder.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\tests\test_models.py" />
+    <Compile Include="app\tests\test_services.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\tests\test_views.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\views.py" />
     <Compile Include="app\__init__.py" />
     <Compile Include="app\migrations\__init__.py" />
@@ -44,6 +85,9 @@
   <ItemGroup>
     <Folder Include="app\" />
     <Folder Include="app\migrations\" />
+    <Folder Include="app\tests\" />
+    <Folder Include="app\services\" />
+    <Folder Include="app\services\tools\" />
     <Folder Include="app\static\" />
     <Folder Include="app\static\app\" />
     <Folder Include="app\static\app\content\" />
@@ -54,7 +98,9 @@
     <Folder Include="StoryHelper\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".env" />
+    <Content Include="app\templates\app\avaliacao.html" />
+    <Content Include="app\templates\app\historia.html" />
+    <Content Include="StoryHelper\.env" />
     <Content Include="requirements.txt" />
     <Content Include="app\static\app\content\bootstrap.css" />
     <Content Include="app\static\app\content\bootstrap.min.css" />
@@ -78,12 +124,8 @@
     <Content Include="app\static\app\scripts\respond.js" />
     <Content Include="app\static\app\scripts\respond.min.js" />
     <Content Include="app\static\app\scripts\_references.js" />
-    <Content Include="app\templates\app\about.html" />
-    <Content Include="app\templates\app\contact.html" />
     <Content Include="app\templates\app\index.html" />
     <Content Include="app\templates\app\layout.html" />
-    <Content Include="app\templates\app\login.html" />
-    <Content Include="app\templates\app\loginpartial.html" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="venv\">

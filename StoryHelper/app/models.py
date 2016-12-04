@@ -1,28 +1,34 @@
-"""
-Definition of models.
-"""
-
 from django.db import models
 from datetime import datetime
 
 class Sentence(models.Model):
     sentence = models.TextField()
     next_sentence = models.TextField()
-
-class Writer(models.Model):
-    email = models.EmailField(null=True)
-    nome = models.CharField(max_length=1024, null=True)
-    data = models.DateTimeField(default=datetime.now())
-    comentario = models.TextField(null=True)
+    keys = models.CharField(max_length=1024, null=True) #TODO: Remover null
+    sujeito =  models.CharField(max_length=1024, null=True) #TODO: Remover null
     
 class Historia(models.Model):
-    titulo = models.CharField(max_length=1024)
-    writer = models.ForeignKey(Writer, on_delete=models.CASCADE)
+    session = models.CharField(max_length=1024)
+    estilo = models.CharField(max_length=1024, null=True) #TODO: Remover null
 
-    def incluir_parte(self, texto):
-        Parte.objects.create(historia=self,texto=texto,ordem=Parte.objects.filter(historia=self).count()+1)
+    def incluir_parte(self, texto, criado_pelo_usuario):
+        Parte.objects.create(historia=self,texto=texto,criado_pelo_usuario=criado_pelo_usuario,ordem=Parte.objects.filter(historia=self).count()+1)
+
+    def incluir_avaliacao(self, coerencia, diversao, comentario):
+        Avalicao.objects.create(historia=self,coerencia=coerencia,diversao=diversao,comentario=comentario)
+
+    def historia_finalizada(self):
+        return Avalicao.objects.filter(historia=self).count() > 0
 
 class Parte(models.Model):
     historia = models.ForeignKey(Historia, on_delete=models.CASCADE)
     texto = models.TextField()
+    criado_pelo_usuario = models.BooleanField(default=True)
     ordem = models.IntegerField()
+
+class Avalicao(models.Model):
+    historia = models.ForeignKey(Historia, on_delete=models.CASCADE)
+    coerencia = models.IntegerField()
+    diversao = models.IntegerField()
+    data = models.DateTimeField(default=datetime.now())
+    comentario = models.TextField(null=True)

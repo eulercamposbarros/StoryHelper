@@ -1,0 +1,33 @@
+{% extends "app/layout.html" %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+                window.onload = function() {
+                    $("#id_historia").focus();
+            };  
+        }); 
+    </script>       
+{% endblock %}
+
+{% block content %}
+
+<h3>Hist&#243;ria</h3>
+{% for item in historia %}
+<p {% if not item.user %} style="font-weight: bold" {% endif %} >{{item.text}}</p>
+{% endfor %}
+<hr/>
+<form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    <p>{{ field.label_tag }}</p>
+    <p>{{ field }}</p>
+    {% endfor %}
+    <p>
+        <input type="submit" value="Enviar" name="registrar"/>
+        {% if historia|length > 0 %}
+        <input type="submit" value="Finalizar hist&#243;ria" name="finalizar" formnovalidate/>
+        {% endif %}
+    </p>
+</form>
+{% endblock %}

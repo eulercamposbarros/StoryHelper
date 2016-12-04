@@ -1,0 +1,21 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<h2>Obrigado por testar esse prot&#243;tipo!</h2>
+<br/>
+<br/>
+<h4>Se poss&#237;vel, fa&#231;a uma avalia&#231;&#227;o da sua experi&#234;ncia...</h4>
+
+<form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    <p>{{ field.label_tag }}</p>
+    <p>{{ field }}</p>
+    {% endfor %}
+    <p>
+        <input type="submit" value="Salvar" formnovalidate/>
+    </p>
+</form>
+
+{% endblock %}
