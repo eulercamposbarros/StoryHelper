@@ -4,12 +4,12 @@ from datetime import datetime
 class Sentence(models.Model):
     sentence = models.TextField()
     next_sentence = models.TextField()
-    keys = models.CharField(max_length=1024, null=True) #TODO: Remover null
-    sujeito =  models.CharField(max_length=1024, null=True) #TODO: Remover null
+    keys = models.CharField(max_length=1024)
+    sujeito =  models.CharField(max_length=1024)
     
 class Historia(models.Model):
     session = models.CharField(max_length=1024)
-    estilo = models.CharField(max_length=1024, null=True) #TODO: Remover null
+    estilo = models.CharField(max_length=1024)
 
     def incluir_parte(self, texto, criado_pelo_usuario):
         Parte.objects.create(historia=self,texto=texto,criado_pelo_usuario=criado_pelo_usuario,ordem=Parte.objects.filter(historia=self).count()+1)

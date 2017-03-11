@@ -37,6 +37,9 @@
     <Compile Include="app\services\formatter.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\services\incluir_sequencia.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\services\model_builder.py">
       <SubType>Code</SubType>
     </Compile>

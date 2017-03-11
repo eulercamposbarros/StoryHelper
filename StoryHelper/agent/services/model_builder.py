@@ -4,7 +4,6 @@ from app.models import *
 from app.services import tagger, services
 from app.services.formatter import format_tokenarray
 from nltk.corpus import machado
-from multiprocessing import Process, Queue, cpu_count, Pool
 from app.services.tools.time_measure import measure
 from app.services.services import get_keys, get_sujeito
 
@@ -45,11 +44,3 @@ def build_model(clear_data=False):
     q = Queue()
     [q.put((sents[i], sents[i+1])) for i in range(0, total_sents - 1)]
     _persist_sentence(q)
-
-@measure
-def build_model_multiprocessed():
-    q = Queue()
-    [q.put((sents[i], sents[i+1])) for i in range(0, total_sents - 1)]
-    procs = [Process(target=_persist_sentence, args=(q,)) for _ in range(cpu_count())]
-    [p.start() for p in procs]
-    [p.join() for p in procs]

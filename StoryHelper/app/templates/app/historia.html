@@ -14,7 +14,11 @@
 
 <h3>Hist&#243;ria</h3>
 {% for item in historia %}
-<p {% if not item.user %} style="font-weight: bold" {% endif %} >{{item.text}}</p>
+    {% if not item.user %}
+        <p style="font-weight: bold">{{item.text}}</p>
+    {% else %}
+        <p>{{item.text}}</p>
+    {% endif %}
 {% endfor %}
 <hr/>
 <form method="post">
