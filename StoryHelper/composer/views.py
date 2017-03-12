@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpRequest
 from datetime import datetime
-from app.forms import *
+from composer.forms import *
 from django.shortcuts import redirect, reverse
-from app.models import *
+from composer.models import *
 from django.contrib.auth import logout
-from app.services import services
+from composer.services import findsequence
 
 def home(request):
     session_id = request.session.session_key
@@ -31,7 +31,7 @@ def home(request):
 
     return render(
         request,
-        'app/index.html',
+        'index.html',
         {
             'year': datetime.now().year,
             'form': form,
@@ -48,7 +48,7 @@ def historia(request):
         if 'registrar' in request.POST and form.is_valid() and len(form.cleaned_data['parte']) > 0:
             parte = form.cleaned_data['parte']
             historia.incluir_parte(texto=parte, criado_pelo_usuario=False)
-            historia.incluir_parte(texto=services.match(parte), criado_pelo_usuario=True)
+            historia.incluir_parte(texto=findsequence(parte), criado_pelo_usuario=True)
         elif 'finalizar' in request.POST: 
             return redirect('avaliacao')
 
@@ -56,7 +56,7 @@ def historia(request):
 
     return render(
         request,
-        'app/historia.html',
+        'historia.html',
         {
             'year': datetime.now().year,
             'form': form,
@@ -86,7 +86,7 @@ def avaliacao(request):
     form = AvaliacaoForm()
     return render(
         request,
-        'app/avaliacao.html',
+        'avaliacao.html',
         {
             'year': datetime.now().year,
             'form': form,

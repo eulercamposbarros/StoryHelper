@@ -1,6 +1,6 @@
 import django
 from django.test import TestCase
-from app.models import *
+from composer.models import *
 
 class ViewTest(TestCase):
     if django.VERSION[:2] >= (1, 7):

@@ -1,12 +1,6 @@
 from django.db import models
 from datetime import datetime
-
-class Sentence(models.Model):
-    sentence = models.TextField()
-    next_sentence = models.TextField()
-    keys = models.CharField(max_length=1024)
-    sujeito =  models.CharField(max_length=1024)
-    
+   
 class Historia(models.Model):
     session = models.CharField(max_length=1024)
     estilo = models.CharField(max_length=1024)

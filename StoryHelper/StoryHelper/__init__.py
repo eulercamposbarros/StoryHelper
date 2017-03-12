@@ -1,6 +1,3 @@
-"""
-Package for StoryHelper.
-"""
 import dotenv, os, django
 
 dotenv.read_dotenv()

@@ -1,5 +1,5 @@
 from django.test import TestCase
-from app.models import *
+from composer.models import *
 
 class PartesTests(TestCase):
     def test_incluir_nova_parte(self):

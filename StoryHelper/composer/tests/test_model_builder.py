@@ -1,6 +1,6 @@
 from django.test import TestCase
-from app.models import *
-from app.services import model_builder
+from composer.models import *
+from composer.services import model_builder
 
 class SujeitoTests(TestCase):
     def test_build_model(self):

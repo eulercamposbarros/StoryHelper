@@ -1,11 +1,12 @@
 import StoryHelper, django
 django.setup()
-from app.models import *
-from app.services import tagger, services
-from app.services.formatter import format_tokenarray
+from agent.models import Sentence
+from agent.tools.tagger import tag
+from agent.tools.formatter import format_tokenarray
 from nltk.corpus import machado
-from app.services.tools.time_measure import measure
-from app.services.services import get_keys, get_sujeito
+from agent.tools.time_measure import measure
+from agent.services.sentence_analyser import get_keys, get_sujeito
+from queue import Queue
 
 sents = machado.sents()[:10000]
 total_sents = len(sents)
@@ -18,8 +19,8 @@ def _persist_sentence(q):
         sent_text = format_sentence(format_tokenarray(sent_data[0]))
         nextsent_text = format_sentence(format_tokenarray(sent_data[1]))
         if not is_valid_sentence(sent_text) or not is_valid_sentence(nextsent_text): continue
-        if len(get_sujeito(sent_text)) == 0 and len(get_keys(sent_text)) == 0: continue
-        tagged = tagger.tag(sent_text)
+        if len(get_sujeito(sent_text)) == 0 or len(get_keys(sent_text)) == 0: continue
+        tagged = tag(sent_text)
         if not all([x[0]==x[1] for x in tagged]):
             data.append(Sentence(sentence=sent_text,
                                     next_sentence=nextsent_text,

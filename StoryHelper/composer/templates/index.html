@@ -1,9 +1,9 @@
-{% extends "app/layout.html" %}
+{% extends "layout.html" %}
 
 {% block scripts %}
 <script type="text/javascript">
     if (window.location.href.indexOf('sucesso') !== -1) {
-        alert('Muito obrigado pelo seu tempo!! :D');
+        alert('Muito obrigado por contribuir! :D');
         window.location.href = window.location.href.replace('/?sucesso=1','');
     }
 </script>       

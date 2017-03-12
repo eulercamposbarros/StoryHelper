@@ -1,9 +1,9 @@
 import nltk
-from app.services.tools import object_io
+from agent.tools import object_io
 from datetime import datetime
 from pathlib import Path
 
-tagger_path = 'tagger.pkl'
+tagger_path = 'venv/tagger.pkl'
 tagger = None
 
 def _simplify_tag(t):

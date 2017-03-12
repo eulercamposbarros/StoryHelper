@@ -32,8 +32,8 @@ ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS')]
 # Application definition
 
 INSTALLED_APPS = [
-    'app',
-    # Add your apps here to enable them
+    'agent',
+    'composer',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

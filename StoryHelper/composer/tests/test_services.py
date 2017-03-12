@@ -1,6 +1,6 @@
 from django.test import TestCase
-from app.models import *
-from app.services import services
+from composer.models import *
+from composer.services import services
 
 class SujeitoTests(TestCase):
     def test_get_sujeito_simples(self):
