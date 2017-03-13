@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+﻿{% extends "layout.html" %}
 
 {% block scripts %}
 <script type="text/javascript">
@@ -13,8 +13,8 @@
 
 <h2>Bem vindo ao Story Helper!</h2>
 
-<h3>Proposta desse prot&#243;tipo</h3>
-Esse prot&#xF3;tipo foi criado para explorar a possibilidade de gera&#xE7;&#xE3;o iterativa e autom&#xE1;tica de textos. Utilize o formul&#xE1;rio a seguir para submeter trechos para uma hist&#xF3;ria e, para cada trecho que voc&#xEA; enviar, o sistema ir&#xE1; contribuir com uma continua&#xE7;&#xE3;o para o enredo seguindo o estilo liter&#xE1;rio escolhido. Selecione um estilo dentre as op&#xE7;&#xF5;es dispon&#xED;veis abaixo que mais de adeque com a hist&#xF3;ria que deseja criar. Com sorte, a continua&#xE7;&#xE3;o proposta pelo sistema far&#xE1; sentido, e quem sabe at&#xE9; poder&#xE1; render uma hist&#xF3;ria interessante. Espero que voc&#xEA; se divirta!
+<h3>Proposta desse protótipo</h3>
+Esse protótipo foi criado para explorar a possibilidade de geração iterativa e automática de textos. Utilize o formulário a seguir para submeter trechos para uma história e, para cada trecho que você enviar, o sistema irá contribuir com uma continuação para o enredo seguindo o estilo literário escolhido. Selecione um estilo dentre as opções disponíveis abaixo que mais de adeque com a história que deseja criar. Com sorte, a continuação proposta pelo sistema fará sentido, e quem sabe até poderá render uma história interessante. Espero que você se divirta!
 <hr/>
 
 <form method="post">
@@ -22,7 +22,7 @@ Esse prot&#xF3;tipo foi criado para explorar a possibilidade de gera&#xE7;&#xE3;
         {% csrf_token %}
         {{ form }}
         <br/>
-        <input type="submit" value="Iniciar hist&#243;ria"/>
+        <input type="submit" value="Iniciar história"/>
     </p>
 </form>
 {% endblock %}

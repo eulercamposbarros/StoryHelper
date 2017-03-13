@@ -6,27 +6,40 @@ from agent.tools.stemmer import stem
 from agent.services.sentence_analyser import get_keys, get_sujeito
 import random
 
+def _get_random_sequence(response):
+    response['Debug'].append('Não foi encontrado nenhum caso similar. Recuperado um caso aleatorio...')
+    opcoes = Sentence.objects.all()
+    response['Resposta'] = opcoes[random.choice(range(len(opcoes)))].next_sentence
+    response['Debug'].append(response['Resposta'])
+    return response
+
 def findsequence(text):
     if Sentence.objects.all().count() == 0:
         raise Exception('O modelo não está treinado')
-
-    print('Taggs - {}'.format(tag(text)))
+    
+    response = {'Resposta':None,'Debug':[]}
+    response['Debug'].append('Taggs: {}'.format(tag(text)))
     keys = get_keys(text)
-    print('Keys - {}'.format(keys))
+    response['Debug'].append('Keys: {}'.format(keys))
     stem_key = stem(keys[0])
-    # TODO: nelhorar o macth das keys
-    sentence = Sentence.objects.filter(keys__contains=stem_key).first()
-    if sentence != None:
-        print('Sentence - {}'.format(sentence.sentence))
-        print('Next Sentence - {}'.format(sentence.next_sentence))
+    opcoes = Sentence.objects.filter(keys__contains=stem_key)
+    if len(opcoes) > 0:
+        sentence = opcoes[random.choice(range(len(opcoes)))]
+        response['Debug'].append('Caso encontrado: {}'.format(sentence.sentence))
+        response['Debug'].append('Próximo caso: {}'.format(sentence.next_sentence))
+        response['Debug'].append('Tags do próximo caso: {}'.format(tag(sentence.next_sentence)))
+        response['Resposta'] = sentence.next_sentence
         sujeito_original = get_sujeito(text)
-        resposta = sentence.next_sentence
-        sujeito_match = get_sujeito(resposta)
-        if len(sujeito_match) > 0:
-            print('Sujeito Match - {}'.format(sujeito_match))
-            print('Sujeito Original - {}'.format(sujeito_original))
-            resposta = resposta.replace(sujeito_match, sujeito_original)
-        return resposta
+        sujeito_match = get_sujeito(response['Resposta'])
+        if len(sujeito_match) > 0 and len(sujeito_original) > 0:
+            response['Debug'].append('Sujeito adaptado: {}'.format(sujeito_match))
+            response['Debug'].append('Sujeito original: {}'.format(sujeito_original))
+            response['Resposta'] = response['Resposta'].replace(sujeito_match, sujeito_original)
+        elif len(sujeito_original) == 0:
+            response['Debug'].append('Não foi encontrado sujeito na frase do usuário')
+        elif len(sujeito_match) == 0:
+            response['Debug'].append('Não foi encontrado sujeito no caso encontrado')
     else:
-        opcoes = Sentence.objects.all()
-        return opcoes[random.choice(range(len(opcoes)))].next_sentence
+        return _get_random_sequence(response)        
+
+    return response

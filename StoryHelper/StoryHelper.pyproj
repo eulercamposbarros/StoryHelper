@@ -39,7 +39,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="agent\services\__init__.py" />
-    <Compile Include="agent\tests.py" />
+    <Compile Include="agent\tests\__init__.py" />
     <Compile Include="agent\tools\__init__.py" />
     <Compile Include="agent\__init__.py" />
     <Compile Include="agent\tools\formatter.py">
@@ -67,12 +67,16 @@
     <Compile Include="composer\models.py" />
     <Compile Include="composer\services.py" />
     <Compile Include="composer\tests\test_models.py" />
-    <Compile Include="composer\tests\test_model_builder.py" />
-    <Compile Include="composer\tests\test_services.py" />
+    <Compile Include="agent\tests\test_model_builder.py" />
+    <Compile Include="agent\tests\test_service_analyser.py" />
     <Compile Include="composer\tests\test_views.py" />
+    <Compile Include="composer\tests\__init__.py" />
     <Compile Include="composer\views.py" />
     <Compile Include="composer\__init__.py" />
     <Compile Include="manage.py" />
+    <Compile Include="StoryHelper\testrunner.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="StoryHelper\__init__.py" />
     <Compile Include="StoryHelper\settings.py" />
     <Compile Include="StoryHelper\urls.py" />
@@ -80,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="agent\" />
+    <Folder Include="agent\tests\" />
     <Folder Include="agent\services\" />
     <Folder Include="agent\tools\" />
     <Folder Include="composer\" />

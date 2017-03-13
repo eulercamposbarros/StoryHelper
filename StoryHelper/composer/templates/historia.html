@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+﻿{% extends "layout.html" %}
 
 {% block scripts %}
     <script type="text/javascript">
@@ -12,7 +12,7 @@
 
 {% block content %}
 
-<h3>Hist&#243;ria</h3>
+<h3>História</h3>
 {% for item in historia %}
     {% if not item.user %}
         <p style="font-weight: bold">{{item.text}}</p>
@@ -30,8 +30,14 @@
     <p>
         <input type="submit" value="Enviar" name="registrar"/>
         {% if historia|length > 0 %}
-        <input type="submit" value="Finalizar hist&#243;ria" name="finalizar" formnovalidate/>
+        <input type="submit" value="Finalizar história" name="finalizar" formnovalidate/>
         {% endif %}
     </p>
 </form>
+<hr/>
+Revisão:
+<br />
+{% for item in debug%}
+    <p>{{item}}</p>
+{% endfor %}
 {% endblock %}

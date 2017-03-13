@@ -14,6 +14,9 @@ class Historia(models.Model):
     def historia_finalizada(self):
         return Avalicao.objects.filter(historia=self).count() > 0
 
+    def ultima_parte(self):
+        return Parte.objects.filter(historia=self).order_by('-ordem').first()
+
 class Parte(models.Model):
     historia = models.ForeignKey(Historia, on_delete=models.CASCADE)
     texto = models.TextField()

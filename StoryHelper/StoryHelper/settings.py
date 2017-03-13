@@ -135,3 +135,5 @@ STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 # https://warehouse.python.org/project/whitenoise/
 
 #STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+TEST_RUNNER = 'StoryHelper.testrunner.PytestTestRunner'

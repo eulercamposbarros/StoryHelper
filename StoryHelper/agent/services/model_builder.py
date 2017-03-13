@@ -8,8 +8,7 @@ from agent.tools.time_measure import measure
 from agent.services.sentence_analyser import get_keys, get_sujeito
 from queue import Queue
 
-sents = machado.sents()[:10000]
-total_sents = len(sents)
+sents = None
 
 def _persist_sentence(q):
     data = []
@@ -40,6 +39,10 @@ def format_sentence(sent):
 
 @measure
 def build_model(clear_data=False):
+    global sents
+    if sents == None:
+        sents = machado.sents()[:10000]
+    total_sents = len(sents)
     if clear_data:
         [s.delete() for s in Sentence.objects.all()]
     q = Queue()

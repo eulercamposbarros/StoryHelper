@@ -10,7 +10,8 @@ from composer.services import findsequence
 def home(request):
     session_id = request.session.session_key
 
-    if request.session.session_key == None: request.session.create()
+    if request.session.session_key == None:
+        request.session.create()
 
     if request.method == 'POST':
         form = IniciarHistoriaForm(request.POST)
@@ -41,16 +42,23 @@ def home(request):
 def historia(request):
     historia = Historia.objects.filter(session=request.session.session_key).first()
 
-    if historia == None: return redirect('home')
+    if historia == None:
+        return redirect('home')
 
+    sequence = None
     if request.method == 'POST':
         form = HistoriaForm(request.POST)
         if 'registrar' in request.POST and form.is_valid() and len(form.cleaned_data['parte']) > 0:
             parte = form.cleaned_data['parte']
-            historia.incluir_parte(texto=parte, criado_pelo_usuario=False)
-            historia.incluir_parte(texto=findsequence(parte), criado_pelo_usuario=True)
+            historia.incluir_parte(texto=parte, criado_pelo_usuario=True)
+            sequence = findsequence(parte)
+            historia.incluir_parte(texto=sequence.get('Resposta'), criado_pelo_usuario=False)
         elif 'finalizar' in request.POST: 
             return redirect('avaliacao')
+    else:
+        if Parte.objects.filter(historia=historia).count() > 0 and historia.ultima_parte().criado_pelo_usuario:
+            sequence = findsequence(historia.ultima_parte().texto)
+            historia.incluir_parte(texto=sequence.get('Resposta'), criado_pelo_usuario=False)
 
     form = HistoriaForm()
 
@@ -60,7 +68,8 @@ def historia(request):
         {
             'year': datetime.now().year,
             'form': form,
-            'historia': [{'text': p.texto, 'user': p.criado_pelo_usuario} for p in historia.parte_set.all()]
+            'historia': [{'text': p.texto, 'user': p.criado_pelo_usuario} for p in historia.parte_set.all()],
+            'debug': sequence.get('Debug') if sequence != None else None
         }
     )
 
